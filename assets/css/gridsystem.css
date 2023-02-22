@@ -293,8 +293,8 @@
     }
 
     .col {
-        padding-left: 6px;
-        padding-right: 6px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     .row.sm-gutter .col {

@@ -13,12 +13,12 @@
 	<div class="App">
 		<div class="calculator" >
 			<div class="screen">
-				<h2 class="result">12345</h2>
+				<h2 class="screen-result">0</h2>
 			</div>
 			<div class="keyboard row">
 				<div class="col l-9"></div>
 				<div class="col l-3">
-					<button class="btn button-c">C</button>
+					<button class="btn button-c" data-action="clear">C</button>
 				</div>
 				<div class="col l-3">
 					<button class="btn button-7">7</button>
@@ -30,7 +30,7 @@
 					<button class="btn button-9">9</button>
 				</div>
 				<div class="col l-3">
-					<button class="btn button-div">:</button>
+					<button data-action="divide" class="operator btn button-div">:</button>
 				</div>
 				<div class="col l-3">
 					<button class="btn button-4">4</button>
@@ -42,7 +42,7 @@
 					<button class="btn button-6">6</button>
 				</div>
 				<div class="col l-3">
-					<button class="btn button-mul">X</button>
+					<button data-action="multiply" class="operator btn button-mul">X</button>
 				</div>
 				<div class="col l-3">
 					<button class="btn button-1">1</button>
@@ -54,23 +54,25 @@
 					<button class="btn button-3">3</button>
 				</div>
 				<div class="col l-3">
-					<button class="btn button-sub">-</button>
+					<button data-action="subtract" class="operator btn button-sub">-</button>
 				</div>
 				<div class="col l-3">
 					<button class="btn button-7">0</button>
 				</div>
 				<div class="col l-3">
-					<button class="btn button-dot">.</button>
+					<button data-action="decimal" class="btn button-dot">.</button>
 				</div>
 				<div class="col l-3">
-					<button class="btn button-add">+</button>
+					<button data-action="calculate" class="btn button-result">=</button>
 				</div>
 				<div class="col l-3">
-					<button class="btn button-result">=</button>
+					<button data-action="add" class="operator btn button-add">+</button>
 				</div>
 			</div>
 	
 		</div>
 	</div>
 </body>
+<script src = "main.js"></script>
+<!-- <script src = "oop.js"></script> -->
 </html>
