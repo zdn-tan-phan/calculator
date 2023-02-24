@@ -1,48 +1,62 @@
 const calculator = document.querySelector(".calculator");
-const keys = calculator.querySelector(".keyboard");
+const keyboard = calculator.querySelector(".keyboard");
 const result = document.querySelector(".screen-result");
 const operators = document.querySelectorAll(".operator");
 
-keys.addEventListener("click", (e) => {
+// define actions, inclue add, subtract, multiply, divide, decimal, clear, calculate
+const actions = {
+  add: "add",
+  subtract: "subtract",
+  multiply: "multiply",
+  divide: "divide",
+  decimal : "decimal",
+  clear : "clear",
+  calculate : "calculate"
+};
+
+//  define status of calculation state
+const calculationState = {
+  operator: "operator",
+  number: "number"
+}
+
+const setPropperties = calculator.dataset //
+
+let previousKeyType = setPropperties.previousKeyType; //add properties for DomElement
+
+
+// listen event onClick when click keyboard
+keyboard.addEventListener("click", (e) => {
   if (e.target.matches("button")) {
     const key = e.target;
     const action = key.dataset.action;
-
     const keyContent = key.textContent;
     const displayedNum = result.textContent;
 
     if (
-      action === "add" ||
-      action === "subtract" ||
-      action === "multiply" ||
-      action === "divide"
+      action === actions.add || action === actions.subtract || action === actions.multiply ||
+      action === actions.divide
     ) {
-      calculator.dataset.previousKeyType = "operator";
-      calculator.dataset.firstValue = displayedNum;
-      calculator.dataset.operator = action;
-    }
-
-    if (action === "decimal") {
+      previousKeyType = calculationState.operator;
+      setPropperties.firstValue = displayedNum;
+      setPropperties.operator = action;
+    }else if(action === actions.decimal) {
       result.textContent = displayedNum + ".";
-      calculator.dataset.previousKey = "decimal";
-    }
-    if (action === "clear") {
-		result.textContent = 0;
-		calculator.dataset.previousKeyType = "clear";
-    }
-
-    if (action === "calculate") {
-      const firstValue = calculator.dataset.firstValue;
-      const operator = calculator.dataset.operator;
+      setPropperties.previousKey = actions.decimal;
+    }else if(action === actions.clear) {
+      result.textContent = 0;
+      previousKeyType = actions.clear;
+    }else if (action === actions.calculate) {
+      const firstValue = setPropperties.firstValue;
+      const operator = setPropperties.operator;
       const secondValue = displayedNum;
       result.textContent = calculate(firstValue, operator, secondValue);
-      calculator.dataset.previousKeyType = "calculate";
+      previousKeyType = actions.calculate;
     }
-    const previousKeyType = calculator.dataset.previousKeyType;
     if (!action) {
-      if (displayedNum === "0" || previousKeyType == "operator") {
+      if (displayedNum === "0" || previousKeyType === calculationState.operator) {
         result.textContent = keyContent;
-		calculator.dataset.previousKey = "number";
+        setPropperties.previousKey = calculationState.number;
       } else {
         result.textContent = displayedNum + keyContent;
       }
@@ -50,16 +64,17 @@ keys.addEventListener("click", (e) => {
   }
 });
 
+
+// function to calculate
 const calculate = (n1, operator, n2) => {
   let result = "";
-
-  if (operator === "add") {
+  if (operator === actions.add) {
     result = parseFloat(n1) + parseFloat(n2);
-  } else if (operator === "subtract") {
+  } else if (operator === actions.subtract) {
     result = parseFloat(n1) - parseFloat(n2);
-  } else if (operator === "multiply") {
+  } else if (operator === actions.multiply) {
     result = parseFloat(n1) * parseFloat(n2);
-  } else if (operator === "divide") {
+  } else if (operator === actions.divide) {
     result = parseFloat(n1) / parseFloat(n2);
   }
   return result;
